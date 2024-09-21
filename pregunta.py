@@ -27,7 +27,6 @@ def clean_data():
         return df
     
     def clean_date(date):
-        from datetime import datetime
         parts = date.split('/')
         if len(parts[2]) == 4:  
             return pd.to_datetime(date, dayfirst=True).strftime('%Y-%m-%d')
@@ -49,9 +48,14 @@ def clean_data():
     df = limpiar_monto(df)
     df = limpiar_fechas(df)
     df = convertir_comuna(df)
+    df = df.drop_duplicates().dropna() # Eliminar duplicados y datos faltantes
 
     return df
 
 
-cleaned_data = clean_data()
-print(cleaned_data.head())
+clean_data()
+#print(clean_data().sexo.value_counts().to_list())
+#print(clean_data().tipo_de_emprendimiento.value_counts().to_list())
+#print(clean_data().idea_negocio.value_counts().to_list())
+#print(clean_data().línea_credito.value_counts().to_list() )
+
